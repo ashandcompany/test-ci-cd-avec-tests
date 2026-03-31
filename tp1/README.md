@@ -32,6 +32,10 @@ tests/
     └── CartControllerTest.php        ← WebTestCase (HTTP simulé)
 ```
 
+## Exercices
+- **Exercice 1** : Faites passer les tests existants en corrigant les erreurs.
+- **Exercice 2** : Complétez les tests en implémentant les tests evités.
+
 ## Aides et docs
 - [Symfony](https://symfony.com/doc/7.4/testing.html)
 - [PHPUnit](https://docs.phpunit.de/en/10.5/writing-tests-for-phpunit.html)
