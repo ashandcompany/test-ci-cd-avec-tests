@@ -1,4 +1,4 @@
-# NWS M1 — Tests Unitaires : 4 TPs Symfony 7.2 + PHPUnit 11
+# NWS M1 — Tests Unitaires : 4 TPs Symfony + PHPUnit
 
 ## Structure du dépôt
 
