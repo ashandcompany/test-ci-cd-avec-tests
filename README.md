@@ -36,9 +36,9 @@ make test          # Lance tous les tests
 
 ## Technologies
 
-- **PHP 8.3** + **Symfony 7.2**
-- **PHPUnit 11** + **ParaTest 7** (TP4)
+- **PHP** + **Symfony**
+- **PHPUnit** + **ParaTest** (TP4)
 - **DAMA/DoctrineTestBundle** (transactions rollback)
-- **WireMock 3** (simulation HTTP)
+- **WireMock** (simulation HTTP)
 - **SQLite** (base de données de test)
 - **PCOV** (couverture de code)
