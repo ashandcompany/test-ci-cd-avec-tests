@@ -79,8 +79,10 @@ jobs:
           WEATHER_API_URL: "http://localhost:8080"
         run: php vendor/bin/paratest --processes=2 --testdox --coverage-clover var/coverage.xml
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+      - name: Upload coverage report as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          files: tp4/var/coverage.xml
-          fail_ci_if_error: false
+          name: coverage-report
+          path: tp4/var/coverage-report/
+          retention-days: 30
