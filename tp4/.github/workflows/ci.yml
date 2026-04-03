@@ -28,15 +28,15 @@ jobs:
 
     services:
       # TODO 1 : Décommentez et complétez le service WireMock ci-dessous
-      # wiremock:
-      #   image: wiremock/wiremock:3.10.0
-      #   ports:
-      #     - 8080:8080
-      #   options: >-
-      #     --health-cmd "curl -f http://localhost:8080/__admin/health"
-      #     --health-interval 5s
-      #     --health-timeout 5s
-      #     --health-retries 10
+      wiremock:
+        image: wiremock/wiremock:3.10.0
+        ports:
+          - 8080:8080
+        options: >-
+          --health-cmd "curl -f http://localhost:8080/__admin/health"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
       - name: Checkout du code
@@ -69,18 +69,16 @@ jobs:
           php bin/console doctrine:database:create --if-not-exists --env=test
           php bin/console doctrine:migrations:migrate --no-interaction --env=test
 
-      - name: Lancer les tests (séquentiel)
+      - name: Lancer les tests (parallèle)
         working-directory: tp4-cicd
         env:
           APP_ENV: test
           DATABASE_URL: "sqlite:///%kernel.project_dir%/var/test.db"
           WEATHER_API_URL: "http://localhost:8080"
-        # TODO 2 : Remplacez phpunit par paratest --processes=2
-        run: php vendor/bin/phpunit --testdox --coverage-clover var/coverage.xml
+        run: php vendor/bin/paratest --processes=2 --testdox --coverage-clover var/coverage.xml
 
-      # TODO 3 : Décommentez pour envoyer la couverture à Codecov
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v4
-      #   with:
-      #     files: tp4-cicd/var/coverage.xml
-      #     fail_ci_if_error: false
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: tp4-cicd/var/coverage.xml
+          fail_ci_if_error: false
