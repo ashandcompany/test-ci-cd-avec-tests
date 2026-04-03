@@ -1,4 +1,4 @@
-name: CI — Tests PHP / Symfony
+name: CI — Tests PHP / Symfonyy
 
 on:
   push:
