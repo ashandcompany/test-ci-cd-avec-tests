@@ -13,34 +13,42 @@ down:
 	docker compose down
 
 test:
-	docker compose run --rm php php vendor/bin/phpunit --testdox
+	docker compose up -d
+	docker compose exec -u 1000:www-data php php vendor/bin/phpunit --testdox
 
 test-unit:
-	docker compose run --rm php php vendor/bin/phpunit --testdox --testsuite=Unit
+	docker compose up -d
+	docker compose exec -u 1000:www-data php php vendor/bin/phpunit --testdox --testsuite=Unit
 
 test-integration:
-	docker compose run --rm php php vendor/bin/phpunit --testdox --testsuite=Integration
+	docker compose up -d
+	docker compose exec -u 1000:www-data php php vendor/bin/phpunit --testdox --testsuite=Integration
 
 test-application:
-	docker compose run --rm php php vendor/bin/phpunit --testdox --testsuite=Application
+	docker compose up -d
+	docker compose exec -u 1000:www-data php php vendor/bin/phpunit --testdox --testsuite=Application
 
 shell:
-	docker compose run --rm php bash
+	docker compose up -d
+	docker compose exec -u 1000:www-data php bash
 
 ## Lance les tests séquentiellement (référence de temps)
 test-seq:
 	@echo "=== Tests séquentiels (phpunit) ==="
-	@docker compose run --rm php bash -c "time php vendor/bin/phpunit --testdox"
+	@docker compose up -d
+	@docker compose exec -u 1000:www-data php bash -c "time php vendor/bin/phpunit --testdox"
 
 ## Lance les tests en parallèle avec ParaTest
 test-parallel:
 	@echo "=== Tests parallèles (paratest) ==="
-	@docker compose run --rm php bash -c "time php vendor/bin/paratest --processes=4 --testdox"
+	@docker compose up -d
+	@docker compose exec -u 1000:www-data php bash -c "time php vendor/bin/paratest --processes=4 --testdox"
 
 ## Alias pratique
 test: test-parallel
 
 ## Rapport de couverture HTML
 coverage:
-	docker compose run --rm php php vendor/bin/phpunit --coverage-html var/coverage-report
+	docker compose up -d
+	docker compose exec -u 1000:www-data php php vendor/bin/phpunit --coverage-html var/coverage-report
 	@echo "Rapport disponible dans var/coverage-report/index.html"
