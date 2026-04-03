@@ -44,6 +44,26 @@ jobs:
         working-directory: tp4
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Charger les mappings WireMock
+        run: |
+          # Attendre que WireMock soit prêt
+          for i in {1..30}; do
+            if curl -s -f http://localhost:8080/__admin/health > /dev/null 2>&1; then
+              echo "✓ WireMock is ready"
+              break
+            fi
+            echo "Waiting for WireMock... ($i/30)"
+            sleep 1
+          done
+          
+          # Charger les mappings via l'API WireMock
+          for mapping_file in tp4/wiremock/mappings/*.json; do
+            echo "Loading mapping: $mapping_file"
+            curl -s -X POST http://localhost:8080/__admin/mappings \
+              -H "Content-Type: application/json" \
+              -d @"$mapping_file" || echo "Warning: Failed to load $mapping_file"
+          done
+
       - name: Création de la base de données de test
         working-directory: tp4
         env:
