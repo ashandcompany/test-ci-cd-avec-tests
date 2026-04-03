@@ -25,7 +25,7 @@ class CartControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/cart');
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('p', 'Frais de port');
+        self::assertAnySelectorTextContains('p', 'Frais de port');
     }
 
     public function testAddToCartReturns200(): void

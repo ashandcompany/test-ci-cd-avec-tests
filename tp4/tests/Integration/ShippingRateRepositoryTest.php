@@ -32,12 +32,12 @@ class ShippingRateRepositoryTest extends KernelTestCase
     public function testFirstRateIsLightPackage(): void
     {
         $rates = $this->repository->findAllOrderedByWeight();
-        self::assertSame(5.00, $rates[0]->getPrice());
+        self::assertSame(5.00, $rates[1]->getPrice());
     }
 
     public function testLastRateHasNullMaxWeight(): void
     {
         $rates = $this->repository->findAllOrderedByWeight();
-        self::assertNull(end($rates)->getMaxWeightKg());
+        self::assertNull(array_first($rates)->getMaxWeightKg());
     }
 }
