@@ -39,7 +39,9 @@ make coverage
 
 Questions :
 - Quel est le taux de couverture global ?
+-- Couverture globale : 69.88% (58/83 lignes)
 - Quelle classe est la moins couverte ?
+-- App\Entity\User avec seulement 44.44% (4/9 lignes)
 - Ajoutez des tests pour atteindre 80% de couverture.
 
 ## Exercice 3 — Automatisation : GitHub Actions
